@@ -7,7 +7,7 @@ echo    DONG BO PROTEINEXUS LEN GITHUB & RENDER ONLINE
 echo ====================================================================
 echo.
 echo Thu muc ma nguon: %CD%
-echo Dang ket noi toi https://github.com/anhkhoo22-design/proteinexus-12h ...
+echo Dang ket noi toi https://github.com/honguyenanhkhoa123-dot/proteinexus-12h ...
 echo.
 echo * Chu y: Neu trinh duyet bat cua so hoi dang nhap GitHub, ban chi can
 echo   bam "Sign in with your browser" de xac nhan la xong!
