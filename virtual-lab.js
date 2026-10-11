@@ -257,7 +257,7 @@ class VirtualLabManager {
     }
 
     updateReagentButtonsUI() {
-        const reagents = ['hcl', 'ethanol', 'cuso4', 'nacl'];
+        const reagents = ['hcl', 'ethanol', 'nacl'];
         reagents.forEach(agentId => {
             const btn = document.getElementById(`bottle_${agentId}`) || 
                         Array.from(document.querySelectorAll('.bottle-btn')).find(b => (b.getAttribute('onclick') || '').includes(`'${agentId}'`));
@@ -302,7 +302,6 @@ class VirtualLabManager {
         let t_chem = 0;
         if (this.coagState.addedAgents.has('hcl')) t_chem += 45;
         if (this.coagState.addedAgents.has('ethanol')) t_chem += 35;
-        if (this.coagState.addedAgents.has('cuso4')) t_chem += 50;
         if (this.coagState.addedAgents.has('nacl')) t_chem += 25;
 
         // Tổng độ vẩn đục: thanh trượt nhiệt độ luôn luôn tác động làm thay đổi %
@@ -380,7 +379,7 @@ class VirtualLabManager {
         // Cập nhật trạng thái nút hoàn nguyên
         if (btnReversible) {
             const hasNaCl = this.coagState.addedAgents.has('nacl');
-            const hasIrreversible = this.coagState.addedAgents.has('hcl') || this.coagState.addedAgents.has('cuso4') || this.coagState.temperature >= 55;
+            const hasIrreversible = this.coagState.addedAgents.has('hcl') || this.coagState.temperature >= 55;
 
             if (hasNaCl && !hasIrreversible) {
                 btnReversible.classList.add('active');
@@ -407,7 +406,6 @@ class VirtualLabManager {
         // Nếu chỉ dùng NaCl (Diêm kết / Salting-out) và nhiệt độ phòng (< 55°C)
         if (this.coagState.addedAgents.has('nacl') && 
             !this.coagState.addedAgents.has('hcl') && 
-            !this.coagState.addedAgents.has('cuso4') && 
             this.coagState.temperature < 55) {
 
             this.coagState.addedAgents.delete('nacl');
