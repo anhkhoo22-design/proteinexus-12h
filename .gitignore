@@ -1,0 +1,12 @@
+node_modules/
+data/
+.tmp/
+.npm-cache/
+.env
+.env.*
+!.env.example
+LOCAL-ADMIN.md
+artifacts/
+test-results/
+playwright-report/
+*.zip

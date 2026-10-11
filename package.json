@@ -1,0 +1,37 @@
+{
+  "name": "proteinexus-3d-biolab",
+  "version": "3.2.0",
+  "description": "Nền tảng khảo sát cấu trúc Protein 3D & Thí nghiệm Hóa học ảo chuẩn SGK Hóa học 12",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "test": "node tests/api.cjs",
+    "test:ui": "node tests/ui.cjs",
+    "test:preserve": "node tests/preservation.cjs",
+    "test:mobile": "node tests/mobile.cjs",
+    "test:cloud": "node tests/cloud.cjs"
+  },
+  "keywords": [
+    "protein",
+    "peptide",
+    "3dmol",
+    "chemistry",
+    "education",
+    "hoa-12"
+  ],
+  "author": "Proteinexus",
+  "license": "MIT",
+  "devDependencies": {
+    "acorn": "^8.19.0",
+    "astring": "^1.9.0",
+    "pdfjs-dist": "^2.16.105",
+    "playwright-core": "^1.51.1"
+  },
+  "engines": {
+    "node": ">=24 <27"
+  },
+  "dependencies": {
+    "@libsql/client": "^0.18.0"
+  }
+}

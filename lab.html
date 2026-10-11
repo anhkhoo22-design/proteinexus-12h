@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROTEINEXUS 3D - Ngân Hàng Dữ Liệu Protein & Phòng Thí Nghiệm Sinh Học Phân Tử</title>
+    <meta name="description" content="Ngân hàng dữ liệu protein 3D hiện đại, trực quan hóa 4 bậc cấu trúc protein và phòng thí nghiệm ảo mô phỏng phản ứng đông tụ và phản ứng màu Biuret trích xuất từ wwPDB.">
+    <meta name="keywords" content="protein, sinh học phân tử, cấu trúc 3d, đông tụ protein, phản ứng biuret, ngân hàng protein, PDB, wwPDB, RCSB">
+    <!-- Google Fonts: 100% Native Vietnamese Support with Cyber Biotech Aesthetic -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&family=Chakra+Petch:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300f2fe'%3E%3Ccircle cx='12' cy='12' r='8'/%3E%3C/svg%3E">
+    <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="study-addon.css">
+</head>
+<body>
+
+    <!-- HUD TOP NAVIGATION BAR -->
+    <header class="hud-header">
+        <div class="hud-header-container">
+            <div class="brand-section">
+                <div class="brand-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="3"/>
+                        <path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/>
+                        <path d="M15.54 8.46a5 5 0 0 1 0 7.08M8.46 8.46a5 5 0 0 0 0 7.08"/>
+                    </svg>
+                </div>
+                <div>
+                    <div class="brand-title">
+                        PROTEINEXUS <span class="brand-badge">3D BIO-LAB</span>
+                    </div>
+                    <div class="brand-sub">Dữ Liệu wwPDB / RCSB Chính Thống &amp; Thí Nghiệm Ảo</div>
+                </div>
+            </div>
+
+            <nav class="nav-tabs">
+                <button class="nav-tab-btn active" data-tab="library">
+                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h7"/></svg>
+                    Kho Protein
+                </button>
+                <button class="nav-tab-btn" data-tab="studio3d">
+                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                    Không Gian 3D
+                </button>
+                <button class="nav-tab-btn" data-tab="structure">
+                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                    4 Bậc Cấu Trúc 3D
+                </button>
+                <button class="nav-tab-btn" data-tab="virtuallab">
+                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+                    Thí Nghiệm Ảo
+                </button>
+                <button class="nav-tab-btn" data-tab="studyquiz">
+                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                    Ôn Luyện &amp; Bài Tập
+                </button>
+                <button class="nav-tab-btn" data-tab="theorysummary">
+                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
+                    Sổ Tay Lí Thuyết
+                </button>
+                <button class="nav-tab-btn" data-tab="aminoacids">
+                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/></svg>
+                    20 Amino Acid
+                </button>
+            </nav>
+
+            <div class="header-controls">
+                <div class="header-user-perf-stack" id="headerUserPerfStack">
+                    <div id="headerUserBadge" class="header-user-badge">
+                        <button class="header-auth-btn" id="btnHeaderAuth" title="Đăng nhập hoặc đăng ký tài khoản học sinh">
+                            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                            <span>Đăng nhập</span>
+                        </button>
+                    </div>
+                </div>
+                <button class="mini-control-btn" id="btnShowSourcesModal" style="color: var(--neon-cyan); border-color: rgba(0, 242, 254, 0.4); font-size: 0.8rem; padding: 5px 12px; display: flex; align-items: center; gap: 6px;">
+                    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                    🏛️ Nguồn Chuẩn wwPDB / RCSB
+                </button>
+                <div class="telemetry-tag">
+                    <div class="pulse-dot"></div>
+                    <span id="hudTelemetryTime">20:25:00</span>
+                </div>
+                <button class="icon-btn active" id="btnToggleSound" title="Bật/Tắt hiệu ứng âm thanh">
+                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN APP CONTENT -->
+    <main class="main-wrapper">
+
+        <!-- ===================================================================
+             TAB 1: KHO THƯ VIỆN PROTEIN
+             =================================================================== -->
+        <section class="tab-content active" id="tab-library">
+            <div class="section-hud-header">
+                <div>
+                    <h1 class="section-title">
+                        <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                        Kho Dữ Liệu Protein wwPDB Chính Thống
+                    </h1>
+                    <p class="section-desc">Cơ sở dữ liệu cấu trúc tinh thể nguyên tử chuẩn xác từ Worldwide Protein Data Bank (wwPDB), RCSB PDB, PDBe và UniProtKB.</p>
+                </div>
+                <div class="telemetry-tag" style="border-color: rgba(0, 242, 254, 0.4); color: var(--neon-cyan);">
+                    Đang hiển thị: <span id="libraryCountBadge" style="font-weight: bold; margin-left: 4px;">10 / 10</span>
+                </div>
+            </div>
+
+            <!-- HERO 3D SHOWCASE TRỰC TIẾP TRÊN TRANG CHỦ -->
+            <div class="hero-3d-banner">
+                <div class="hero-3d-viewport" id="hero3DContainer">
+                    <div style="position: absolute; bottom: 12px; left: 16px; z-index: 10; pointer-events: none;">
+                        <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--neon-cyan); background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; border: 1px solid rgba(0,242,254,0.3);">
+                            🖱️ Giữ chuột trái để xoay 3D | Cuộn để phóng to/thu nhỏ
+                        </span>
+                    </div>
+                </div>
+
+                <div class="hero-3d-info">
+                    <div class="hero-badge-tag">
+                        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        TRỰC QUAN HÓA 3D NGUYÊN TỬ THỰC TẾ (wwPDB 4HHB)
+                    </div>
+                    <h2 style="font-family: var(--font-heading); font-size: 1.5rem; color: #fff;" id="heroProteinTitle">
+                        Hemoglobin (Huyết cầu tố) - 4HHB
+                    </h2>
+                    <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.6;" id="heroProteinDesc">
+                        Mô hình cấu trúc tinh thể phân giải 1.74 Å từ wwPDB (Fermi et al., 1984). Gồm 4 tiểu đơn vị liên kết phối hợp với 4 nhóm Heme chứa ion Fe2+ màu đỏ phát quang.
+                    </p>
+                    <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 0.5rem;">
+                        <button class="btn-cyber-primary" onclick="window.app.switchTab('studio3d')">
+                            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                            Mở Không Gian 3D Chuyên Sâu
+                        </button>
+                        <button class="mini-control-btn" style="padding: 0.65rem 1.2rem;" onclick="window.heroViewer.resetCamera()">
+                            Khôi phục góc nhìn
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===============================================================
+                 BẢN ĐỒ HỌC TẬP PROTEIN - CHƯƠNG TRÌNH HÓA HỌC 12 (LEARNING MAP)
+                 =============================================================== -->
+            <section class="learning-map-section">
+                <div class="learning-map-header">
+                    <div class="lmh-left">
+                        <span class="lmh-badge">🎓 LỘ TRÌNH TỰ HỌC TOÀN DIỆN • CHUẨN GDPT 2018</span>
+                        <h2 class="lmh-title">Bản Đồ Học Tập Protein: Bạn Muốn Khám Phá Từ Đâu?</h2>
+                        <p class="lmh-desc">Hệ thống tương tác kết nối trực tiếp: <strong>Quan sát 3D</strong> ⟷ <strong>Hiểu cấu tạo 2D</strong> ⟷ <strong>Thực hành ảo</strong> ⟷ <strong>Luyện tập &amp; Đột phá điểm số Hóa 12</strong>.</p>
+                    </div>
+
+                    <!-- 3 Chế độ học tập đặc biệt -->
+                    <div class="lmh-quick-modes">
+                        <button class="lmh-mode-btn mode-beginner" onclick="if(window.educationMgr) window.educationMgr.startBeginnerPath()" title="Dành cho người chưa có kiến thức nền - 8 bước nhanh">
+                            🚀 Bắt Đầu Từ Số 0 (8 Bước)
+                        </button>
+                        <button class="lmh-mode-btn mode-15min" onclick="if(window.educationMgr) window.educationMgr.startQuick15MinReview()" title="Bộ kit cấp tốc trước giờ kiểm tra">
+                            ⚡ Ôn Protein Trong 15 Phút
+                        </button>
+                        <button class="lmh-mode-btn mode-random" onclick="if(window.educationMgr) window.educationMgr.startRandomQuiz()" title="Kiểm tra nhanh 10 câu ngẫu nhiên &amp; phân tích điểm yếu">
+                            🎲 Kiểm Tra Nhanh 10 Câu
+                        </button>
+                    </div>
+                </div>
+
+                <!-- LƯỚI 6 CỔNG HỌC TẬP TƯƠNG TÁC -->
+                <div class="learning-map-grid">
+                    <!-- CARD 1: 3D MOLECULAR STUDIO -->
+                    <div class="learning-card" onclick="window.app.switchTab('studio3d')">
+                        <div class="lc-icon-wrap" style="background: rgba(0, 242, 254, 0.15); border-color: var(--neon-cyan);">
+                            <span class="lc-icon">🧬</span>
+                        </div>
+                        <div class="lc-badge">Mô hình WebGL wwPDB</div>
+                        <h3 class="lc-title">Không Gian 3D Tương Tác</h3>
+                        <p class="lc-desc">Xoay, zoom và nhấp trực tiếp vào từng đoạn chuỗi để soi công thức 2D, dạng peptide và phản ứng màu Biuret.</p>
+                        <div class="lc-action">
+                            <span>Khám phá 3D ngay</span>
+                            <span class="lc-arrow">&rarr;</span>
+                        </div>
+                    </div>
+
+                    <!-- CARD 2: 4 BẬC CẤU TRÚC 3D -->
+                    <div class="learning-card" onclick="window.app.switchTab('structure')">
+                        <div class="lc-icon-wrap" style="background: rgba(168, 85, 247, 0.15); border-color: var(--neon-purple);">
+                            <span class="lc-icon">🔬</span>
+                        </div>
+                        <div class="lc-badge">Khảo Sát Không Gian</div>
+                        <h3 class="lc-title">4 Bậc Cấu Trúc Phân Tử</h3>
+                        <p class="lc-desc">Từ chuỗi Bậc 1 tuyến tính, xoắn Alpha/phiến Beta Bậc 2, đến 4 lực cuộn gập Bậc 3 và phức hợp Bậc 4.</p>
+                        <div class="lc-action" style="color: var(--neon-purple);">
+                            <span>Khảo sát 4 bậc</span>
+                            <span class="lc-arrow">&rarr;</span>
+                        </div>
+                    </div>
+
+                    <!-- CARD 3: THÍ NGHIỆM HÓA SINH ẢO -->
+                    <div class="learning-card" onclick="window.app.switchTab('virtuallab')">
+                        <div class="lc-icon-wrap" style="background: rgba(244, 63, 94, 0.15); border-color: var(--neon-magenta);">
+                            <span class="lc-icon">⚗️</span>
+                        </div>
+                        <div class="lc-badge">Ống Nghiệm Thực Hành</div>
+                        <h3 class="lc-title">Phòng Thí Nghiệm Ảo</h3>
+                        <p class="lc-desc">Mô phỏng ống nghiệm: Thí nghiệm Đông tụ protein (nhiệt, axit, cồn) &amp; Thí nghiệm Phản ứng màu Biuret kèm đo quang phổ.</p>
+                        <div class="lc-action" style="color: var(--neon-magenta);">
+                            <span>Vào phòng Lab</span>
+                            <span class="lc-arrow">&rarr;</span>
+                        </div>
+                    </div>
+
+
+                    <!-- CARD 5: ÔN LUYỆN & NGÂN HÀNG BÀI TẬP -->
+                    <div class="learning-card" onclick="window.app.switchTab('studyquiz')">
+                        <div class="lc-icon-wrap" style="background: rgba(16, 185, 129, 0.15); border-color: var(--neon-emerald);">
+                            <span class="lc-icon">📝</span>
+                        </div>
+                        <div class="lc-badge">Định Dạng Đề Thi Mới</div>
+                        <h3 class="lc-title">Ngân Hàng Bài Tập Hóa 12</h3>
+                        <p class="lc-desc">Trắc nghiệm 4 phương án, trắc nghiệm Đúng/Sai THPT mới, và máy tính thủy phân peptide phân tích từng bước.</p>
+                        <div class="lc-action" style="color: var(--neon-emerald);">
+                            <span>Luyện bài tập</span>
+                            <span class="lc-arrow">&rarr;</span>
+                        </div>
+                    </div>
+
+                    <!-- CARD 6: SỔ TAY TỔNG KẾT & DANH MỤC PROTEIN -->
+                    <div class="learning-card" onclick="window.app.switchTab('theorysummary')">
+                        <div class="lc-icon-wrap" style="background: rgba(56, 189, 248, 0.15); border-color: var(--neon-sky);">
+                            <span class="lc-icon">📖</span>
+                        </div>
+                        <div class="lc-badge">Tra Cứu &amp; Tóm Tắt</div>
+                        <h3 class="lc-title">Sổ Tay Tổng Kết Lí Thuyết</h3>
+                        <p class="lc-desc">Khám phá chi tiết 7 protein đời sống (Albumin, Hemoglobin, Collagen...), 4 thí nghiệm thực hành và Checklist thi cử.</p>
+                        <div class="lc-action" style="color: var(--neon-sky);">
+                            <span>Mở sổ tay</span>
+                            <span class="lc-arrow">&rarr;</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- THANH TIẾN ĐỘ HỌC TẬP (LEARNING PROGRESS BAR) -->
+                <div class="learning-progress-bar-card">
+                    <div class="lpc-header">
+                        <div style="display:flex; align-items:center; gap:8px;">
+                            <span style="font-size:1.1rem;">📊</span>
+                            <span style="font-family:var(--font-heading); font-size:0.95rem; font-weight:700; color:#fff;">
+                                TIẾN ĐỘ HỌC TẬP PROTEIN CỦA BẠN (LƯU TỰ ĐỘNG)
+                            </span>
+                        </div>
+                        <span id="learningProgressPercent" style="font-family:var(--font-mono); font-weight:bold; color:var(--neon-cyan);">15% Hoàn Thành</span>
+                    </div>
+                    <div class="lpc-track">
+                        <div id="learningProgressFill" class="lpc-fill" style="width: 15%;"></div>
+                    </div>
+                    <div class="lpc-stats">
+                        <span id="lpStatQuizzes">✓ Câu hỏi đã luyện: 4/40</span>
+                        <span id="lpStatModels">✓ Mô hình 3D đã khám phá: 2/10</span>
+                        <span id="lpStatLabs">✓ Thí nghiệm ảo đã thực hành: 1/4</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Toolbar & Bộ lọc -->
+            <div class="library-toolbar">
+                <div class="search-box-wrapper">
+                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                    <input type="text" class="cyber-input" id="librarySearchInput" placeholder="Tìm theo tên protein, mã PDB (4HHB, 4INS...), chức năng...">
+                </div>
+
+                <div class="filter-group">
+                    <button class="filter-btn category-filter-btn active" data-category="all">Tất Cả</button>
+                    <button class="filter-btn category-filter-btn" data-category="transport">Vận Chuyển</button>
+                    <button class="filter-btn category-filter-btn" data-category="hormone">Hormone</button>
+                    <button class="filter-btn category-filter-btn" data-category="enzyme">Enzyme</button>
+                    <button class="filter-btn category-filter-btn" data-category="structural">Cấu Trúc</button>
+                    <button class="filter-btn category-filter-btn" data-category="immune">Miễn Dịch</button>
+                </div>
+
+                <div class="custom-pdb-bar">
+                    <select class="cyber-select" id="levelFilterSelect" style="width: auto;">
+                        <option value="all">Mọi Bậc Cấu Trúc</option>
+                        <option value="3">Bậc III (Tertiary)</option>
+                        <option value="4">Bậc IV (Quaternary)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Grid Thẻ Protein -->
+            <div class="protein-grid" id="proteinCardGrid"></div>
+        </section>
+
+
+        <!-- ===================================================================
+             TAB 2: KHÔNG GIAN 3D PROTEIN (3D MOLECULAR STUDIO)
+             =================================================================== -->
+        <section class="tab-content" id="tab-studio3d">
+            <div class="section-hud-header">
+                <div>
+                    <h2 class="section-title">
+                        <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                        Không Gian Tương Tác 3D Phân Tử 3Dmol WebGL
+                    </h2>
+                    <p class="section-desc">Mô hình phân tử chuẩn quốc tế: Dải ruy băng Cartoon, Ball &amp; Stick, không gian cầu CPK, phát hiện xoắn Alpha / phiến Beta và nhóm Heme.</p>
+                </div>
+            </div>
+
+            <div class="studio-layout">
+                <!-- Bảng điều khiển Studio (Sidebar) -->
+                <aside class="studio-sidebar">
+                    <!-- Chọn Protein mẫu -->
+                    <div class="sidebar-block">
+                        <div class="sidebar-block-title">
+                            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h7"/></svg>
+                            Mô Hình Protein Chính Thống
+                        </div>
+                        <select class="cyber-select" id="presetProteinSelect" onchange="window.viewer3D.loadProteinById(this.value)">
+                            <option value="hemoglobin">Hemoglobin (4HHB) - Fermi et al. 1984</option>
+                            <option value="insulin">Insulin (4INS) - Baker et al. 1988</option>
+                            <option value="gfp">GFP (1EMA) - Ormo et al. 1996</option>
+                            <option value="collagen">Collagen (1CAG) - Bella et al. 1994</option>
+                            <option value="lysozyme">Lysozyme (1AKI) - Artymiuk et al. 1982</option>
+                            <option value="myoglobin">Myoglobin (1MBO) - Phillips 1980</option>
+                            <option value="igg">Kháng thể IgG (1IGT) - Harris et al. 1997</option>
+                            <option value="catalase">Catalase (1DGB) - Ko et al. 2000</option>
+                            <option value="crambin">Crambin (1CRN) - Teeter 1984 (0.54 Å)</option>
+                        </select>
+                    </div>
+
+                    <!-- Tải PDB trực tiếp từ mạng -->
+                    <div class="sidebar-block">
+                        <div class="sidebar-block-title">
+                            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
+                            Tải Từ wwPDB / RCSB PDB
+                        </div>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <input type="text" class="cyber-input" id="customPdbInput" placeholder="VD: 1CRN, 2HHB..." maxlength="4" style="text-transform: uppercase;">
+                            <button class="btn-cyber-primary" id="btnLoadCustomPdb" style="padding: 0.6rem 0.9rem;">Tải</button>
+                        </div>
+                        <label for="pdbFileInput" class="mini-control-btn" style="display: block; text-align: center; margin-top: 0.4rem; cursor: pointer;">
+                            📁 Tải file .PDB từ máy tính
+                        </label>
+                        <input type="file" id="pdbFileInput" accept=".pdb" style="display: none;">
+                    </div>
+
+                    <!-- Kiểu Hiển Thị (Representation) -->
+                    <div class="sidebar-block">
+                        <div class="sidebar-block-title">
+                            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
+                            Kiểu Dáng Mô Hình 3D
+                        </div>
+                        <select class="cyber-select" id="viewerStyleSelect">
+                            <option value="cartoon">Dải Ruy Băng (Cartoon / Ribbon)</option>
+                            <option value="trace">Dạng Sợi Xương Sống (Backbone Trace / Fiber)</option>
+                            <option value="tube">Dạng Ống Tròn 3D (Smooth Tube)</option>
+                            <option value="stick">Khung Que Liên Kết (Stick)</option>
+                            <option value="ball_and_stick">Cầu &amp; Que (Ball and Stick)</option>
+                            <option value="spacefill">Khối Cầu CPK (Spacefill / VDW)</option>
+                            <option value="surface">Bề Mặt Phân Tử (Molecular Surface)</option>
+                        </select>
+                    </div>
+
+                    <!-- Bảng Phối Màu (Color Scheme) -->
+                    <div class="sidebar-block">
+                        <div class="sidebar-block-title">
+                            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343"/></svg>
+                            Bảng Phối Màu
+                        </div>
+                        <select class="cyber-select" id="viewerColorSelect">
+                            <option value="chain">Theo Từng Chuỗi Polypeptide (Chain)</option>
+                            <option value="ss">Theo Cấu Trúc Bậc 2 (Xoắn Alpha Hồng / Phiến Beta Vàng)</option>
+                            <option value="spectrum">Cầu Vồng Quang Phổ N->C (Spectrum)</option>
+                            <option value="polarity">Độ Phân Cực / Kỵ Nước (Polarity)</option>
+                            <option value="element">Theo Nguyên Tố Hóa Học (CPK Element)</option>
+                        </select>
+                    </div>
+
+                    <!-- Tùy Chỉnh Tốc Độ Xoay -->
+                    <div class="sidebar-block">
+                        <div class="slider-group">
+                            <div class="slider-header">
+                                <span>Tốc độ xoay 3D:</span>
+                                <span id="spinSpeedVal">1.0x</span>
+                            </div>
+                            <input type="range" class="cyber-slider" id="spinSpeedSlider" min="0.2" max="3.0" step="0.2" value="1.0">
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- Vùng Khung Nhìn 3D (Viewport) -->
+                <div class="studio-viewport-card">
+                    <div class="viewport-hud-top">
+                        <div class="viewport-info-tag">
+                            <span class="viewport-title" id="hudViewerTitle">Hemoglobin (4HHB)</span>
+                            <span class="viewport-meta" id="hudViewerMeta">Bậc IV | 64.5 kDa | 1.74 Å</span>
+                        </div>
+
+                        <div class="viewport-floating-actions">
+                            <button class="btn-float-hud active" id="btnToggleSpin" title="Bật/Tắt tự động xoay">
+                                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                            </button>
+                            <button class="btn-float-hud" id="btnResetCamera" title="Khôi phục góc nhìn mặc định">
+                                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                            </button>
+                            <button class="btn-float-hud" id="btnSnapshot3D" title="Lưu ảnh phân tử độ nét cao (.PNG)">
+                                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><circle cx="12" cy="13" r="4"/></svg>
+                            </button>
+                            <button class="btn-float-hud" id="btnFullscreen3D" title="Xem toàn màn hình">
+                                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 8V4m0 0h4M4 4l5 5m11-5h-4m4 0v4m0-4l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Canvas 3D Viewport container -->
+                    <div class="mol-viewport" id="molViewerContainer">
+                        <div class="mol-loading-overlay" id="molLoadingOverlay" style="display: none;">
+                            <div class="cyber-spinner"></div>
+                            <div class="loading-text" id="molLoadingText">Đang khởi tạo cấu trúc 3D...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ===================================================================
+             TAB 3: 4 BẬC CẤU TRÚC PROTEIN 3D
+             =================================================================== -->
+        <section class="tab-content" id="tab-structure">
+            <div class="section-hud-header">
+                <div>
+                    <h2 class="section-title">
+                        <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                        Khảo Sát 4 Bậc Cấu Trúc Bằng Mô Hình 3D WebGL
+                    </h2>
+                    <p class="section-desc">Mô hình 3D thực tế theo nguyên lý hóa sinh: Chuỗi peptide liên kết phẳng, xoắn Alpha/phiến Beta, 4 lực tương tác bậc 3 và phức hợp đa chuỗi bậc 4.</p>
+                </div>
+            </div>
+
+            <!-- Stepper 4 Bậc -->
+            <div class="levels-stepper">
+                <div class="step-card active" data-level="1">
+                    <span class="step-num">01</span>
+                    <div class="step-title">Cấu Trúc Bậc I</div>
+                    <div class="step-subtitle">Trình tự amino acid &amp; Liên kết peptide</div>
+                </div>
+                <div class="step-card" data-level="2">
+                    <span class="step-num">02</span>
+                    <div class="step-title">Cấu Trúc Bậc II</div>
+                    <div class="step-subtitle">Xoắn Alpha &amp; Phiến gấp Beta</div>
+                </div>
+                <div class="step-card" data-level="3">
+                    <span class="step-num">03</span>
+                    <div class="step-title">Cấu Trúc Bậc III</div>
+                    <div class="step-subtitle">Cuộn gập 3D &amp; 4 lực tương tác</div>
+                </div>
+                <div class="step-card" data-level="4">
+                    <span class="step-num">04</span>
+                    <div class="step-title">Cấu Trúc Bậc IV</div>
+                    <div class="step-subtitle">Phức hợp đa tiểu đơn vị &amp; Hợp tác</div>
+                </div>
+            </div>
+
+            <!-- Khung chi tiết tương tác -->
+            <div class="level-detail-card">
+                <div class="level-text-content">
+                    <span class="level-badge-large" id="levelBadgeText">CẤU TRÚC BẬC I (PRIMARY STRUCTURE)</span>
+                    <h3 class="level-big-title" id="levelBigTitle">Bậc I: Trình tự sắp xếp các Amino Acid</h3>
+                    <p class="level-desc-p" id="levelDescParagraph"></p>
+                    <div class="feature-box-list" id="levelFeaturesContainer"></div>
+                </div>
+
+                <div class="level-sandbox-card">
+                    <!-- Three.js 3D Container -->
+                    <div class="sandbox-canvas-wrapper" id="levelSandboxContainer"></div>
+                    <div class="sandbox-toolbar" id="sandboxControls"></div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ===================================================================
+             TAB 4: PHÒNG THÍ NGHIỆM GIẢ LẬP (VIRTUAL LAB)
+             =================================================================== -->
+        <section class="tab-content" id="tab-virtuallab">
+            <div class="section-hud-header">
+                <div>
+                    <h2 class="section-title">
+                        <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+                        Phòng Thí Nghiệm Hóa Sinh Phân Tử Ảo
+                    </h2>
+                    <p class="section-desc">Mô phỏng thao tác ống nghiệm thực tế: Khảo sát hiện tượng đông tụ protein và phản ứng định tính màu Biuret với máy đo quang phổ hấp thụ.</p>
+                </div>
+            </div>
+
+            <!-- Subtab chọn Thí nghiệm 1 hoặc Thí nghiệm 2 -->
+            <div class="lab-tab-nav">
+                <button class="lab-subtab-btn active" data-exp="coagulation" onclick="if(window.virtualLab) window.virtualLab.switchExperiment('coagulation')">
+                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                    Thí Nghiệm 1: Đông Tụ Protein
+                </button>
+                <button class="lab-subtab-btn" data-exp="biuret" onclick="if(window.virtualLab) window.virtualLab.switchExperiment('biuret')">
+                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343"/></svg>
+                    Thí Nghiệm 2: Phản Ứng Màu Biuret &amp; Quang Phổ
+                </button>
+            </div>
+
+            <!-- THÍ NGHIỆM 1: ĐÔNG TỤ -->
+            <div class="lab-workspace active" id="coagulationWorkspace">
+                <div class="lab-bench-card">
+                    <div class="bench-stage">
+                        <div class="pipette-tool">
+                            <div class="droplet"></div>
+                        </div>
+
+                        <!-- Ống nghiệm trung tâm với nhiệt kế điện tử gắn cạnh -->
+                        <div class="tube-rack-station">
+                            <div class="test-tube-wrapper">
+                                <div style="display: flex; align-items: center; gap: 1rem;">
+                                    <div class="test-tube" id="coagTestTube">
+                                        <div class="tube-fluid" id="coagFluid">
+                                            <div class="fluid-meniscus"></div>
+                                            <div class="coagulation-cloud" id="coagCloud"></div>
+                                            <div class="bubbles-container" id="coagBubbles"></div>
+                                        </div>
+                                    </div>
+                                    <!-- Nhiệt kế & Đo độ đông tụ đo ngay cạnh ống nghiệm -->
+                                    <div style="display: flex; gap: 6px;">
+                                        <div style="background: rgba(0,0,0,0.6); padding: 6px 10px; border-radius: 8px; border: 1px solid rgba(0,242,254,0.3); text-align: center;">
+                                            <div style="font-size: 0.68rem; color: var(--text-secondary);">NHIỆT ĐỘ</div>
+                                            <div id="tubeCurrentTempBadge" style="font-family: var(--font-mono); font-size: 1.15rem; font-weight: 800; color: var(--neon-cyan);">25°C</div>
+                                        </div>
+                                        <div style="background: rgba(0,0,0,0.6); padding: 6px 10px; border-radius: 8px; border: 1px solid rgba(16,185,129,0.3); text-align: center;">
+                                            <div style="font-size: 0.68rem; color: var(--text-secondary);">ĐÔNG TỤ</div>
+                                            <div id="tubeCurrentCoagBadge" style="font-family: var(--font-mono); font-size: 1.15rem; font-weight: 800; color: var(--neon-emerald);">0%</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span style="font-family: var(--font-sub); font-size: 0.85rem; color: #cbd5e1; font-weight: 600; margin-top: 0.5rem;">
+                                    Dung Dịch Albumin (Lòng Trắng Trứng)
+                                </span>
+                                <div id="coagTubeStatusAlert" style="margin-top: 6px; font-size: 0.8rem; font-family: var(--font-mono); color: var(--neon-emerald); background: rgba(0,0,0,0.6); padding: 5px 10px; border-radius: 6px; border: 1px solid rgba(16, 185, 129, 0.3); text-align: center;">
+                                    Trạng thái: Albumin nguyên vẹn (25°C, trong suốt)
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="heating-element" id="heatingElementGlow"></div>
+                    </div>
+
+                    <div style="display: flex; flex-direction: column; gap: 1rem;">
+                        <div style="background: rgba(7, 12, 24, 0.7); padding: 1.25rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.08);">
+                            <div class="slider-header" style="margin-bottom: 0.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px;">
+                                <div>
+                                    <span style="font-family: var(--font-heading); color: #fff;">Bếp Gia Nhiệt:</span>
+                                    <span id="tempDisplayVal" style="font-family: var(--font-mono); font-size: 1.2rem; font-weight: 800; color: var(--neon-cyan);">25°C</span>
+                                </div>
+                                <div class="coag-live-gauge">
+                                    <span style="font-size: 0.78rem; color: #94a3b8;">Độ Đông Tụ:</span>
+                                    <span id="coagPercentVal" style="font-size: 1.15rem; font-weight: 800;">0%</span>
+                                </div>
+                            </div>
+                            <input type="range" class="cyber-slider" id="tempSlider" min="20" max="100" value="25">
+                            <div class="coag-progress-track">
+                                <div class="coag-progress-bar" id="coagProgressBar" style="width: 0%;"></div>
+                            </div>
+                            
+                            <!-- Các mốc nhiệt độ nhanh 1-Click đồng bộ thanh trượt -->
+                            <div style="display: flex; gap: 0.5rem; margin-top: 0.75rem; flex-wrap: wrap;">
+                                <button class="mini-control-btn coag-preset-btn active-preset" data-temp="25" onclick="window.virtualLab.setTemperaturePreset(25)">25°C (Phòng TN)</button>
+                                <button class="mini-control-btn coag-preset-btn" data-temp="60" onclick="window.virtualLab.setTemperaturePreset(60)">60°C (Bắt đầu đục)</button>
+                                <button class="mini-control-btn coag-preset-btn" data-temp="85" onclick="window.virtualLab.setTemperaturePreset(85)">85°C (Đông tụ)</button>
+                                <button class="mini-control-btn coag-preset-btn" data-temp="100" onclick="window.virtualLab.setTemperaturePreset(100)">100°C (Đun sôi)</button>
+                            </div>
+
+                            <div style="display: flex; gap: 0.75rem; margin-top: 0.75rem; flex-wrap: wrap;">
+                                <button class="btn-cyber-primary" id="btnStartHeating">🔥 Bật Bếp Đun Nóng</button>
+                                <button class="mini-control-btn" id="btnTestReversibility">💧 Thử Hoàn Nguyên (+ Nước cất)</button>
+                                <button class="mini-control-btn" style="color: var(--neon-magenta);" id="btnResetCoag">Thay Ống Mới</button>
+                            </div>
+                        </div>
+
+                        <div class="reagent-shelf">
+                            <div style="width: 100%; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 4px;">
+                                <span style="font-family: var(--font-heading); font-size: 0.85rem; color: var(--neon-cyan);">
+                                    CÁC HÓA CHẤT GÂY BIẾN TÍNH (BẬT/TẮT NHỎ VÀO ỐNG):
+                                </span>
+                                <span style="font-size: 0.72rem; color: #94a3b8; font-family: var(--font-mono);">*Nhấp để Thêm hoặc Gỡ</span>
+                            </div>
+                            <button class="bottle-btn" id="bottle_hcl" onclick="window.virtualLab.toggleCoagAgent('hcl')">
+                                <span class="bottle-badge" style="background: #ef4444;"></span>
+                                <span class="bottle-label">Axit HCl 10% (pH &lt; 2)</span>
+                                <span class="bottle-status-tag" id="tag_hcl" style="font-size: 0.72rem; margin-left: auto; color: #94a3b8;">[+ Nhỏ]</span>
+                            </button>
+                            <button class="bottle-btn" id="bottle_ethanol" onclick="window.virtualLab.toggleCoagAgent('ethanol')">
+                                <span class="bottle-badge" style="background: #38bdf8;"></span>
+                                <span class="bottle-label">Cồn Ethanol 90°</span>
+                                <span class="bottle-status-tag" id="tag_ethanol" style="font-size: 0.72rem; margin-left: auto; color: #94a3b8;">[+ Nhỏ]</span>
+                            </button>
+                            <button class="bottle-btn" id="bottle_cuso4" onclick="window.virtualLab.toggleCoagAgent('cuso4')">
+                                <span class="bottle-badge" style="background: #0ea5e9;"></span>
+                                <span class="bottle-label">Muối Kim Loại CuSO4</span>
+                                <span class="bottle-status-tag" id="tag_cuso4" style="font-size: 0.72rem; margin-left: auto; color: #94a3b8;">[+ Nhỏ]</span>
+                            </button>
+                            <button class="bottle-btn" id="bottle_nacl" onclick="window.virtualLab.toggleCoagAgent('nacl')">
+                                <span class="bottle-badge" style="background: #f8fafc;"></span>
+                                <span class="bottle-label">Muối Ăn NaCl Bão Hòa (Diêm Kết)</span>
+                                <span class="bottle-status-tag" id="tag_nacl" style="font-size: 0.72rem; margin-left: auto; color: #94a3b8;">[+ Nhỏ]</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lab-analysis-card">
+                    <div>
+                        <h3 style="font-family: var(--font-heading); font-size: 1.1rem; color: #fff; margin-bottom: 0.4rem;">
+                            Trạng Thái Mẫu Thử
+                        </h3>
+                        <p id="coagTurbidityStatus" style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 700; color: var(--neon-emerald);">
+                            Dung dịch trong suốt (Protein tự nhiên nguyên vẹn)
+                        </p>
+                    </div>
+
+                    <div class="molecular-lens">
+                        <div class="lens-header">
+                            <span>KÍNH HIỂN VI PHÂN TỬ (CẤP ĐỘ VI MÔ)</span>
+                            <span style="color: var(--neon-emerald);">ĐỘ PHÓNG ĐẠI: 1,000,000x</span>
+                        </div>
+                        <canvas class="lens-canvas" id="molecularLensCanvas"></canvas>
+                        <p style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.5rem; line-height: 1.4;">
+                            *Quan sát sự bung tháo của các quả cầu protein tự nhiên thành chuỗi sợi rối và kết dính lại tạo mạng lưới gel trắng đục khi bị biến tính.
+                        </p>
+                    </div>
+
+                    <div>
+                        <div style="font-family: var(--font-heading); font-size: 0.85rem; color: var(--neon-cyan); margin-bottom: 0.4rem;">
+                            SỔ TAY QUAN SÁT THÍ NGHIỆM:
+                        </div>
+                        <div class="lab-log-box" id="coagLog">
+                            <div class="log-entry info">[HỆ THỐNG] Đã sẵn sàng. Nhiệt độ môi trường phòng thí nghiệm 25°C. Mẫu: Lòng trắng trứng.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- THÍ NGHIỆM 2: BIURET -->
+            <div class="lab-workspace" id="biuretWorkspace">
+                <div class="lab-bench-card">
+                    <div class="bench-stage">
+                        <div class="tube-rack-station">
+                            <div class="test-tube-wrapper">
+                                <div class="test-tube" id="biuretTestTube">
+                                    <div class="tube-fluid" id="biuretFluid">
+                                        <div class="fluid-meniscus"></div>
+                                    </div>
+                                </div>
+                                <span style="font-family: var(--font-sub); font-size: 0.85rem; color: #cbd5e1; font-weight: 600;">
+                                    Ống Phản Ứng Biuret
+                                </span>
+                                <div id="biuretTubeStatusAlert" style="margin-top: 6px; font-size: 0.8rem; font-family: var(--font-mono); color: var(--neon-cyan); background: rgba(0,0,0,0.6); padding: 5px 10px; border-radius: 6px; border: 1px solid rgba(0, 242, 254, 0.3); text-align: center;">
+                                    Trạng thái: Ống nghiệm mẫu thử mới
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; flex-direction: column; gap: 1rem;">
+                        <div style="background: rgba(7, 12, 24, 0.7); padding: 1.25rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.08);">
+                            <!-- NÚT CHẠY TỰ ĐỘNG TRỌN GÓI SIÊU TIỆN LỢI -->
+                            <button class="btn-cyber-primary" id="btnAutoRunBiuret" style="width: 100%; justify-content: center; margin-bottom: 1rem; background: linear-gradient(135deg, rgba(168, 85, 247, 0.4), rgba(0, 242, 254, 0.4)); border-color: var(--neon-purple); box-shadow: var(--glow-purple);">
+                                🧪 TỰ ĐỘNG CHẠY TRỌN GÓI THÍ NGHIỆM (1-Click Run)
+                            </button>
+
+                            <span style="font-family: var(--font-heading); font-size: 0.85rem; color: #fff; display: block; margin-bottom: 0.4rem;">
+                                HOẶC THAO TÁC THỦ CÔNG TỪNG BƯỚC:
+                            </span>
+
+                            <div style="margin-bottom: 0.8rem;">
+                                <label style="font-size: 0.8rem; color: var(--text-secondary); display: block; margin-bottom: 4px;">1. Chọn Mẫu Thử Nghiệm:</label>
+                                <select class="cyber-select" id="biuretSampleSelect">
+                                    <option value="egg_white">Lòng Trắng Trứng (Albumin - Rất nhiều liên kết peptide)</option>
+                                    <option value="milk">Sữa Tươi Nguyên Chất (Casein Protein)</option>
+                                    <option value="glycine">Dung Dịch Glycine Tự Do (0 liên kết peptide)</option>
+                                    <option value="starch">Dung Dịch Hồ Tinh Bột (Carbohydrate - 0 liên kết peptide)</option>
+                                    <option value="distilled_water">Nước Cất (Mẫu đối chứng âm)</option>
+                                    <option value="gelatin">Dung Dịch Gelatin (Collagen thủy phân)</option>
+                                </select>
+                            </div>
+
+                            <div style="display: flex; gap: 0.6rem; flex-wrap: wrap;">
+                                <button class="btn-cyber-primary" id="btnAddNaOH">2. Thêm 1.0 mL NaOH 10%</button>
+                                <button class="btn-cyber-primary" id="btnAddCuSO4">3. Nhỏ 3 giọt CuSO4 1%</button>
+                                <button class="mini-control-btn active" id="btnShakeTube" style="color: var(--neon-cyan);">4. Lắc Ống Nghiệm (Vortex)</button>
+                                <button class="btn-cyber-primary" id="btnMeasureSpectroDirect" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(0, 242, 254, 0.3)); border-color: var(--neon-emerald);">5. Đưa Vào Buồng Đo (A540)</button>
+                                <button class="mini-control-btn" style="color: var(--neon-magenta);" id="btnResetBiuret">Làm Lại</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lab-analysis-card">
+                    <div class="spectro-display">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-family: var(--font-heading); font-size: 0.95rem; color: #fff;">
+                                MÁY ĐO QUANG PHỔ ẢO (SPECTROPHOTOMETER)
+                            </span>
+                            <button class="btn-cyber-primary" id="btnMeasureSpectro" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;">
+                                Đưa Vào Buồng Đo
+                            </button>
+                        </div>
+
+                        <div class="spectro-screen">
+                            <div>
+                                <div class="spectro-lambda">BƯỚC SÓNG ĐO: <strong>λ = 540 nm</strong></div>
+                                <div style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 3px;">HẤP THỤ PHỨC CHẤT BIURET</div>
+                            </div>
+                            <div class="spectro-abs-value" id="spectroAbsValue">0.000</div>
+                        </div>
+
+                        <div style="background: #010204; border-radius: 8px; padding: 0.75rem; border: 1px solid rgba(255,255,255,0.06);">
+                            <div style="font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 4px;">ĐƯỜNG CONG QUANG PHỔ HẤP THỤ (400nm - 700nm):</div>
+                            <svg width="100%" height="90" viewBox="0 0 200 90" id="spectroCurveSvg">
+                                <polyline fill="none" stroke="#64748b" stroke-width="2" points="0,85 100,85 200,85" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div style="background: rgba(7, 12, 24, 0.7); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 1rem;">
+                        <h4 style="color: var(--neon-cyan); font-size: 0.95rem; margin-bottom: 0.4rem;">Cơ Chế Phản Ứng Phức Chất Biuret:</h4>
+                        <p style="font-size: 0.85rem; color: #cbd5e1; line-height: 1.5;">
+                            Ion Cu2+ trong môi trường kiềm phản ứng với các nguyên tử Nitơ của liên kết peptide (-CO-NH-), tạo phức chất chelate màu <strong>tím hoa cà đặc trưng</strong>. Phản ứng yêu cầu tối thiểu <strong>2 liên kết peptide</strong> (từ tripeptide trở lên).
+                        </p>
+                    </div>
+
+                    <div>
+                        <div style="font-family: var(--font-heading); font-size: 0.85rem; color: var(--neon-cyan); margin-bottom: 0.4rem;">
+                            NHẬT KÝ PHÂN TÍCH BIURET:
+                        </div>
+                        <div class="lab-log-box" id="biuretLog">
+                            <div class="log-entry info">[HỆ THỐNG] Máy đo quang phổ sẵn sàng. Nhấn nút "TỰ ĐỘNG CHẠY TRỌN GÓI" hoặc thực hiện theo từng bước.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ===================================================================
+             TAB 5: MA TRẬN 20 AMINO ACID (20 AMINO ACIDS MATRIX)
+             =================================================================== -->
+        <section class="tab-content" id="tab-aminoacids">
+            <div class="section-hud-header">
+                <div>
+                    <h2 class="section-title">
+                        <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/></svg>
+                        Ma Trận 20 Amino Acid Chuẩn
+                    </h2>
+                    <p class="section-desc">Bảng tra cứu tương tác 20 đơn phân cấu tạo nên protein sinh học: Ký hiệu 3 chữ cái, 1 chữ cái, điểm đẳng điện (pI), khối lượng và codon di truyền.</p>
+                </div>
+            </div>
+
+            <div class="aa-grid" id="aminoAcidGrid"></div>
+        </section>
+
+        <!-- ===================================================================
+             TAB 6: ÔN LUYỆN & BÀI TẬP CHUYÊN ĐỀ (STUDY & QUIZ MASTERY)
+             =================================================================== -->
+        <section class="tab-content" id="tab-studyquiz"><div id="studyExtension"><div class="study-account-bar"><strong>Học tập · Lớp 12H</strong><div id="account"></div></div><nav id="studyNewNav" aria-label="Học tập và tài khoản"><button data-view="lessons" class="active">Lí thuyết SGK</button><button data-view="practice">Bài tập lớp</button><button data-view="test">Kiểm tra</button><button data-view="board">Bảng xếp hạng</button></nav><section id="lessons" class="study-view active"><div class="section-heading"><div><span class="eyebrow">KIẾN THỨC CỐT LÕI</span><h1>Sổ tay protein</h1></div><span class="pill">Bài 9–10 · Hóa học 12 KNTT</span></div><div class="lesson-layout"><aside id="lessonNav" aria-label="Danh sách bài học"></aside><article id="lessonBody" class="paper"></article></div></section><section id="practice" class="study-view"><div class="section-heading"><div><span class="eyebrow">TỰ KIỂM TRA KIẾN THỨC</span><h1>Luyện tập có lời giải</h1></div><div id="practiceStats" class="pill"></div></div><div class="filters"><label>Chủ đề<select id="topicFilter"><option value="">Tất cả chủ đề</option></select></label><label>Dạng câu<select id="typeFilter"><option value="">Tất cả dạng</option><option value="mcq">Nhiều lựa chọn</option><option value="tf">Đúng / Sai</option><option value="short">Trả lời ngắn</option></select></label><label>Trạng thái<select id="statusFilter"><option value="">Tất cả</option><option value="new">Chưa làm</option><option value="wrong">Cần ôn lại</option><option value="done">Đã làm</option></select></label></div><p class="muted">Lần nộp đầu được lưu để tính điểm. Câu đúng/sai đạt điểm khi đúng cả bốn nhận định. Đáp án và giải thích hiện sau khi nộp.</p><div id="questions"></div></section><section id="board" class="study-view"><div class="section-heading"><div><span class="eyebrow">CÙNG HỌC · CÙNG TIẾN BỘ</span><h1>Bảng Xếp Hạng</h1></div><span class="pill">Tiến độ theo bài đã nộp</span></div><div class="paper" id="leaderboard"></div></section><section id="manage" class="study-view"><div class="section-heading"><div><span class="eyebrow">NGÂN HÀNG CÂU HỎI</span><h1>Biên soạn bài tập</h1></div><button id="newQuestion">Tạo câu mới</button></div><form id="questionEditor" class="paper"><input name="id" type="hidden"><div class="form-grid"><label>Dạng câu<select name="type"><option value="mcq">Nhiều lựa chọn</option><option value="tf">Đúng / Sai (4 nhận định)</option><option value="short">Trả lời ngắn</option></select></label><label>Chủ đề<select name="topic" id="editorTopic"></select></label></div><label>Câu hỏi<textarea name="prompt" required maxlength="2000"></textarea></label><label id="optionsLabel">Bốn lựa chọn / nhận định, mỗi dòng một ý<textarea name="options" rows="4"></textarea></label><label>Đáp án<input name="answer" required><small id="answerHelp">Nhiều lựa chọn: 1–4. Đúng/Sai: Đ,S,Đ,S. Trả lời ngắn: đáp án chuẩn.</small></label><label>Giải thích<textarea name="explanation" required maxlength="2000"></textarea></label><label>Điểm<input type="number" name="points" min="1" max="100" value="10" required></label><button class="primary">Lưu câu hỏi và đáp án</button><p class="muted">Câu đã có bài làm cần được ẩn và tạo bản mới trước khi sửa đáp án.</p></form><div id="manageList"></div></section><section id="personal" class="study-view"><div class="section-heading"><div><span class="eyebrow">GÓC HỌC TẬP CÁ NHÂN</span><h1>Học theo nhịp của bạn</h1></div><button id="exportNotes">Xuất ghi chú</button></div><div class="personal-grid"><div class="paper"><h2>Phiên tập trung</h2><div id="timerValue" class="timer">25:00</div><button id="timerStart" class="primary">Bắt đầu / tạm dừng</button><button id="timerReset">Đặt lại</button><h3>Thẻ ghi nhớ</h3><button id="flashcard" class="flashcard"></button><button id="nextCard">Thẻ tiếp theo →</button></div><div class="paper"><h2>Ghi chú của mình</h2><textarea id="personalNotes" rows="10" maxlength="10000" placeholder="Ghi điều vừa hiểu, công thức hoặc lỗi cần tránh…"></textarea><button id="saveNotes" class="primary">Lưu ghi chú</button></div></div><div class="paper"><h2>Ôn từ lỗi đã gặp</h2><div id="mistakes"></div></div></section><section id="test" class="study-view"><div class="section-heading"><div><span class="eyebrow">KIỂM TRA KIẾN THỨC</span><h2>Tự kiểm tra tổng hợp</h2></div><span id="examClock" class="pill">15:00</span></div><div id="examArea" class="paper"><p>10 câu gồm nhiều lựa chọn, đúng/sai và trả lời ngắn. Thời gian 15 phút, đáp án hiện khi nộp. Kết quả được lưu vào tài khoản.</p><p class="muted">Đề lấy từ những câu bạn chưa làm. Câu đã nộp được giữ nguyên điểm.</p><button id="examStart" class="primary">Bắt đầu kiểm tra</button></div><div class="paper" style="margin-top:20px;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px;"><div><span class="eyebrow">BẢNG VÀNG THI ĐUA</span><h3 style="margin:4px 0 0 0;">Top Điểm &amp; Số Câu Đúng Kiểm Tra</h3></div><div style="display:flex;align-items:center;gap:8px;"><span class="pill" id="examRefreshTimer" style="font-size:0.8rem;background:rgba(0,229,255,0.1);color:#00e5ff;">🔄 Tự làm mới: 5s</span><button id="examRefreshBtn" class="pill" style="cursor:pointer;font-size:0.8rem;">Cập nhật ngay</button></div></div><div id="examLeaderboard"></div></div></section><section id="classes" class="study-view"><div class="section-heading"><div><span class="eyebrow">KHU VỰC QUẢN TRỊ · THẦY THẮNG &amp; KHOA</span><h1>Quản lý thành viên &amp; Phân loại lớp</h1></div><button id="refreshClassesBtn" class="pill" style="cursor:pointer;">🔄 Tải lại dữ liệu</button></div><div id="classStatsGrid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:20px;"></div><div id="classRequestsArea" class="paper" style="margin-bottom:20px;" hidden><h3 style="margin-top:0;display:flex;align-items:center;gap:8px;">📬 Yêu cầu xin vào lớp chờ duyệt <span id="requestCountBadge" class="pill" style="background:#ff9800;color:#fff;">0</span></h3><div id="classRequestsList"></div></div><div class="paper"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:10px;"><h3 style="margin:0;">Danh sách học sinh theo lớp</h3><div style="display:flex;gap:8px;align-items:center;"><select id="adminClassFilter" style="padding:6px 12px;border-radius:6px;background:rgba(255,255,255,0.06);color:inherit;border:1px solid rgba(255,255,255,0.15);"><option value="">Tất cả các lớp</option></select><input id="adminMemberSearch" placeholder="Tìm tên học sinh..." style="padding:6px 12px;border-radius:6px;background:rgba(255,255,255,0.06);color:inherit;border:1px solid rgba(255,255,255,0.15);width:160px;"></div></div><div id="classMembersTable"></div></div></section><dialog id="authDialog"><button class="dialog-close" id="closeAuth" aria-label="Đóng">×</button><span class="eyebrow">KHÔNG GIAN LỚP 12H</span><h2 id="authTitle">Chào bạn trở lại</h2><div class="auth-tabs"><button data-auth="login" class="active">Đăng nhập</button><button data-auth="signup">Đăng ký</button><button data-auth="reset">Quên mật khẩu</button></div><form id="authForm"><label>Họ và tên thật<input name="name" required maxlength="80" autocomplete="username" placeholder="Nhập đầy đủ họ tên có dấu"></label><label id="passwordLabel">Mật khẩu<input name="password" type="password" required maxlength="128" autocomplete="current-password"></label><div id="recoveryFields" hidden><label>Lớp học<input name="className" maxlength="30" placeholder="Ví dụ: 12H, 12A, Khách..." value="12H"></label><label>Mã PIN khôi phục (4-6 số)<input name="recoveryPin" maxlength="50" autocomplete="off" placeholder="Ví dụ: 1234 (dùng để đổi mật khẩu nếu quên)"></label><div class="hobby-privacy-fields" style="position:fixed;bottom:-2000px;left:-2000px;opacity:0;pointer-events:none;"><label>Sở thích 1<input name="hobby1" maxlength="50" autocomplete="off" placeholder="Sở thích 1"></label><label>Sở thích 2<input name="hobby2" maxlength="50" autocomplete="off" placeholder="Sở thích 2"></label><label>Sở thích 3<input name="hobby3" maxlength="50" autocomplete="off" placeholder="Sở thích 3"></label></div><p class="muted">Ghi nhớ lớp và mã PIN để đổi mật khẩu nếu quên.</p></div><label id="activationField" hidden>Mã kích hoạt (nếu được cấp)<input name="activationCode" type="password" autocomplete="off"></label><p id="authMessage" role="status" aria-live="polite"></p><button id="authSubmit" class="primary full">Đăng nhập</button><button type="button" id="quickGuestBtn" class="full guest-btn" style="margin-top:10px;background:rgba(0,229,255,0.08);border:1px dashed #00e5ff;color:#00e5ff;padding:9px;border-radius:8px;font-weight:600;cursor:pointer;">🚀 Vào học nhanh với vai trò Khách</button><p class="muted" id="authHint">Dùng họ tên và mật khẩu đã đăng ký.</p></form></dialog><dialog id="classRequestDialog"><button class="dialog-close" id="closeClassRequest" aria-label="Đóng">×</button><span class="eyebrow">LỚP HỌC</span><h2>Xin vào lớp / Đổi lớp</h2><form id="classRequestForm"><p class="muted">Chọn lớp bạn muốn vào. Yêu cầu sẽ được gửi tới Thầy Thắng và Khoa để phê duyệt.</p><label>Tên lớp mong muốn<input name="targetClass" required maxlength="30" placeholder="Ví dụ: 12H, 12L, 12A1..."></label><button class="primary full" style="margin-top:14px;">Gửi yêu cầu vào lớp</button></form></dialog><div id="toast" role="status" aria-live="polite"></div></div></section>
+
+        <!-- ===================================================================
+             TAB 7: SỔ TAY TỔNG KẾT & DANH MỤC LÍ THUYẾT (THEORY SUMMARY MATRIX)
+             =================================================================== -->
+        <section class="tab-content" id="tab-theorysummary">
+            <div class="section-hud-header">
+                <div>
+                    <h2 class="section-title">
+                        <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
+                        Sổ Tay Lí Thuyết &amp; Danh Mục Protein Toàn Diện
+                    </h2>
+                    <p class="section-desc">Tra cứu lí thuyết chuyên sâu từng loại protein, từng phản ứng thí nghiệm thực hành và Sổ tay tổng kết trọng tâm Peptide - Protein chuẩn GDPT 2018.</p>
+                </div>
+            </div>
+
+            <!-- BANNER HỖ TRỢ THUYẾT TRÌNH LỚP 12H -->
+            <div class="theory-presentation-banner">
+                <div class="tpb-badge">🎤 DÀNH CHO BUỔI THUYẾT TRÌNH &amp; HỌC SINH DÙNG ĐIỆN THOẠI</div>
+                <div class="tpb-body">
+                    <div class="tpb-info">
+                        <h3 class="tpb-title">Khám Phá Lí Thuyết Protein 12 · Tương Tác Trực Tiếp</h3>
+                        <p class="tpb-desc">Nhóm thuyết trình chiếu trên máy tính – Các bạn trong lớp mở điện thoại tương tác trả lời câu hỏi và điều khiển đồ thị động thời gian thực!</p>
+                    </div>
+                    <div class="tpb-actions">
+                        <button class="btn-tpb-action primary" onclick="window.educationMgr.switchTheorySubtab('presentation12h')">
+                            🎤 Mở Thuyết Trình &amp; Điền Khuyết 12H
+                        </button>
+                        <button class="btn-tpb-action secondary" onclick="window.educationMgr.switchTheorySubtab('examranking')">
+                            🏆 Thi Tổng Hợp &amp; Xếp Hạng
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subtabs trong Sổ tay Lí Thuyết -->
+            <div class="theory-subtabs-nav">
+                <button class="theory-subtab-btn active highlight-cyan" data-subtab="presentation12h">
+                    🎯 Bài Học Tương Tác &amp; Điền Khuyết
+                </button>
+                <button class="theory-subtab-btn" data-subtab="proteins">
+                    🧬 Danh Mục Lí Thuyết Protein
+                </button>
+                <button class="theory-subtab-btn" data-subtab="experiments">
+                    🧪 Lí Thuyết &amp; Thí Nghiệm Ảo
+                </button>
+                <button class="theory-subtab-btn" data-subtab="summary">
+                    📖 Sổ Tay Tổng Kết Lí Thuyết 12
+                </button>
+                <button class="theory-subtab-btn highlight-green" data-subtab="interactive">
+                    🎯 Trắc Nghiệm Tương Tác
+                </button>
+                <button class="theory-subtab-btn highlight-amber" data-subtab="coagchart">
+                    📈 Đồ Thị Động Đông Tụ
+                </button>
+                <button class="theory-subtab-btn highlight-purple" data-subtab="examranking">
+                    🏆 Kiểm Tra Tổng Hợp &amp; Xếp Hạng 12H
+                </button>
+            </div>
+
+            <!-- View 0: Thuyết trình tương tác 12H & Điền khuyết theo đề thầy phát -->
+            <div class="theory-subview active" id="theoryView-presentation12h">
+                <div id="presentation12hContainer"></div>
+            </div>
+
+            <!-- View 1: Danh mục từng loại protein -->
+            <div class="theory-subview" id="theoryView-proteins">
+                <div class="protein-theory-grid" id="proteinTheoryGrid"></div>
+            </div>
+
+            <!-- View 2: Lí thuyết từng thí nghiệm -->
+            <div class="theory-subview" id="theoryView-experiments">
+                <div class="exp-theory-grid" id="experimentsTheoryArea"></div>
+            </div>
+
+            <!-- View 3: Sổ tay tổng kết -->
+            <div class="theory-subview" id="theoryView-summary">
+                <div id="theorySummaryContainer"></div>
+            </div>
+
+            <!-- View 4: Câu hỏi tương tác thuyết trình (Dành cho điện thoại & máy tính) -->
+            <div class="theory-subview" id="theoryView-interactive">
+                <div id="presentationInteractiveContainer"></div>
+            </div>
+
+            <!-- View 5: Đồ thị động về sự đông tụ theo thời gian và theo chất sử dụng -->
+            <div class="theory-subview" id="theoryView-coagchart">
+                <div id="coagulationDynamicChartContainer"></div>
+            </div>
+
+            <!-- View 6: Kiểm tra tổng hợp kiến thức & Bảng vàng xếp hạng học sinh 12H -->
+            <div class="theory-subview" id="theoryView-examranking">
+                <div id="examRankingContainer"></div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- MODAL TOÀN CỤC (GLOBAL MODAL DIALOG) -->
+    <div class="modal-backdrop" id="globalModalBackdrop">
+        <div class="cyber-modal" id="globalCyberModal">
+            <div class="modal-top-actions">
+                <button class="modal-btn-action" id="modalFullscreenBtn" title="Phóng to toàn màn hình" onclick="if(window.toggleModalFullscreen) window.toggleModalFullscreen();">
+                    <svg id="modalFsIcon" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 8V4m0 0h4M4 4l5 5m11-5h-4m4 0v4m0-4l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/></svg>
+                </button>
+                <button class="modal-btn-action modal-close-action" id="modalCloseBtn" title="Đóng cửa sổ (ESC)">
+                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+            <div id="modalContentContainer"></div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- TÍCH HỢP TOÀN BỘ THƯ VIỆN 3D & DỮ LIỆU CỤC BỘ CHÍNH THỐNG (CÓ CDN FALLBACK) -->
+    <script src="lib/3Dmol-min.js"></script>
+    <script>
+        if (!window.$3Dmol && !window['3Dmol']) {
+            document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/3Dmol/2.0.4/3Dmol-min.js"><\/script>');
+        }
+    </script>
+    <script src="lib/three.min.js"></script>
+    <script>
+        if (!window.THREE) {
+            document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"><\/script>');
+        }
+    </script>
+    <script src="lib/OrbitControls.js"></script>
+    <script src="protein-data.js"></script>
+    <script src="education-data.js"></script>
+    <script src="chemical-2d-engine.js"></script>
+    <script src="viewer3d.js"></script>
+    <script src="structure-levels.js"></script>
+    <script src="virtual-lab.js"></script>
+    <script src="education-manager.js"></script>
+    <script src="app.js"></script>
+<script src="course-data.js"></script>
+<script src="study-addon.js"></script>
+</body>
+</html>
